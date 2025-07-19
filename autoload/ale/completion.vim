@@ -620,6 +620,9 @@ function! ale#completion#ParseLSPCompletions(response) abort
         " Collapse whitespaces and line breaks into a single space.
         let l:detail = substitute(get(l:item, 'detail', ''), '\_s\+', ' ', 'g')
 
+        let l:funcsig = substitute(get(l:item, 'label', ''), '\_s\+', ' ', 'g')
+        let l:doc = l:detail . ' ' . l:funcsig . "\n" .  l:doc
+
         let l:result = {
         \   'word': l:word,
         \   'kind': ale#completion#GetCompletionSymbols(get(l:item, 'kind', '')),
